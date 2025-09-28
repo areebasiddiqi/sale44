@@ -60,7 +60,7 @@ export async function GET(
     console.log('PDF first few bytes:', Array.from(pdfBytes.slice(0, 10)).map(b => b.toString(16)).join(' '))
 
     // Return PDF response
-    return new NextResponse(pdfBytes, {
+    return new NextResponse(pdfBytes as BodyInit, {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="audit-report-${audit.business_name || 'business'}-${new Date().toISOString().split('T')[0]}.pdf"`,
