@@ -48,7 +48,7 @@ export default function SimpleLoginPage() {
         }, 2000)
       }
     } catch (error) {
-      setStatus('Unexpected error: ' + error.message)
+      setStatus('Unexpected error: ' + (error instanceof Error ? error.message : 'Unknown error'))
     } finally {
       setLoading(false)
     }
