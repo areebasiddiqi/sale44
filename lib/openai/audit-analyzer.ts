@@ -31,10 +31,20 @@ interface EnhancedAuditResult {
   competitiveAnalysis: string
   growthOpportunities: string[]
   riskAssessment: string
+  aiReadinessOverview: {
+    categoryAnalysis: string
+    keyStrengths: string[]
+    criticalGaps: string[]
+  }
   actionPlan: {
     immediate: string[]
     shortTerm: string[]
     longTerm: string[]
+  }
+  strategicActionPlan: {
+    immediateActions: string[]
+    shortTermStrategy: string[]
+    longTermRoadmap: string[]
   }
   industryBenchmarks: string
   detailedAnalysis: string
@@ -72,10 +82,20 @@ Please provide a comprehensive analysis in the following JSON format:
   "competitiveAnalysis": "Analysis of competitive positioning and market presence (2-3 sentences)",
   "growthOpportunities": ["Opportunity 1", "Opportunity 2", "Opportunity 3", "Opportunity 4"],
   "riskAssessment": "Assessment of potential risks and vulnerabilities (2-3 sentences)",
+  "aiReadinessOverview": {
+    "categoryAnalysis": "Analysis of the business's AI readiness across different categories and digital maturity (2-3 sentences)",
+    "keyStrengths": ["AI/Digital strength 1", "AI/Digital strength 2", "AI/Digital strength 3"],
+    "criticalGaps": ["Critical gap in AI/Digital readiness 1", "Critical gap 2", "Critical gap 3"]
+  },
   "actionPlan": {
     "immediate": ["Action to take within 1-2 weeks", "Another immediate action"],
     "shortTerm": ["Action for 1-3 months", "Another short-term action", "Third short-term action"],
     "longTerm": ["Strategic action for 6+ months", "Another long-term action"]
+  },
+  "strategicActionPlan": {
+    "immediateActions": ["Immediate action for 1-3 months", "Another immediate strategic action"],
+    "shortTermStrategy": ["Short-term strategic action for 3-6 months", "Another short-term strategy", "Third short-term strategy"],
+    "longTermRoadmap": ["Long-term roadmap item for 6-12 months", "Another long-term roadmap item", "Third long-term roadmap item"]
   },
   "industryBenchmarks": "How this business compares to industry standards and benchmarks (2-3 sentences)",
   "detailedAnalysis": "A comprehensive 4-5 paragraph analysis covering digital presence, operational efficiency, market positioning, and strategic recommendations"
@@ -148,10 +168,20 @@ Focus on actionable insights, specific recommendations, and strategic guidance. 
           competitiveAnalysis: 'Competitive analysis requires additional data.',
           growthOpportunities: ['Digital optimization', 'Process improvement'],
           riskAssessment: 'Risk assessment based on current parameter scores.',
+          aiReadinessOverview: {
+            categoryAnalysis: 'AI readiness assessment based on current digital capabilities and infrastructure.',
+            keyStrengths: ['Existing digital presence', 'Basic online infrastructure'],
+            criticalGaps: ['Limited AI integration', 'Digital transformation opportunities']
+          },
           actionPlan: {
             immediate: ['Review audit results', 'Identify priority areas'],
             shortTerm: ['Implement quick wins', 'Address critical issues'],
             longTerm: ['Strategic improvements', 'Long-term optimization']
+          },
+          strategicActionPlan: {
+            immediateActions: ['Assess current digital capabilities', 'Identify quick improvement opportunities'],
+            shortTermStrategy: ['Implement digital improvements', 'Enhance online presence', 'Optimize key processes'],
+            longTermRoadmap: ['Digital transformation strategy', 'AI integration planning', 'Long-term competitive positioning']
           },
           industryBenchmarks: 'Industry benchmarks vary by sector and business size.',
           detailedAnalysis: 'Detailed analysis of business performance across key parameters.'
@@ -252,7 +282,17 @@ Respond in JSON format:
       competitiveAnalysis: aiAnalysis.competitiveAnalysis || '',
       growthOpportunities: aiAnalysis.growthOpportunities || [],
       riskAssessment: aiAnalysis.riskAssessment || '',
+      aiReadinessOverview: aiAnalysis.aiReadinessOverview || {
+        categoryAnalysis: 'AI readiness assessment completed.',
+        keyStrengths: ['Digital presence established'],
+        criticalGaps: ['AI integration opportunities']
+      },
       actionPlan: aiAnalysis.actionPlan || { immediate: [], shortTerm: [], longTerm: [] },
+      strategicActionPlan: aiAnalysis.strategicActionPlan || {
+        immediateActions: ['Review current capabilities'],
+        shortTermStrategy: ['Implement improvements'],
+        longTermRoadmap: ['Strategic development']
+      },
       industryBenchmarks: aiAnalysis.industryBenchmarks || '',
       detailedAnalysis: aiAnalysis.detailedAnalysis || ''
     }
@@ -270,10 +310,20 @@ Respond in JSON format:
       competitiveAnalysis: 'Competitive analysis requires additional data.',
       growthOpportunities: ['Digital optimization', 'Process improvement'],
       riskAssessment: 'Risk assessment based on current parameter scores.',
+      aiReadinessOverview: {
+        categoryAnalysis: 'AI readiness assessment based on current digital capabilities.',
+        keyStrengths: ['Existing digital infrastructure'],
+        criticalGaps: ['AI integration opportunities', 'Digital transformation potential']
+      },
       actionPlan: {
         immediate: ['Review audit results', 'Identify priority areas'],
         shortTerm: ['Implement quick wins', 'Address critical issues'],
         longTerm: ['Strategic improvements', 'Long-term optimization']
+      },
+      strategicActionPlan: {
+        immediateActions: ['Assess current capabilities', 'Identify improvement areas'],
+        shortTermStrategy: ['Implement digital enhancements', 'Optimize processes', 'Strengthen online presence'],
+        longTermRoadmap: ['Digital transformation roadmap', 'AI integration strategy', 'Competitive positioning']
       },
       industryBenchmarks: 'Industry benchmarks vary by sector and business size.',
       detailedAnalysis: 'Detailed analysis of business performance across key parameters. Focus on areas with lower scores for maximum impact.'

@@ -83,7 +83,8 @@ export async function generateAuditReport(audit: any, auditResult?: any, waterma
   yPosition -= 40
   
   // Company info
-  page.drawText(sanitizeText(`Company: ${audit.url || 'N/A'}`), {
+  const companyName = audit.name || audit.business_name || audit.url || 'N/A'
+  page.drawText(sanitizeText(`Company: ${companyName}`), {
     x: margin,
     y: yPosition,
     size: 14,
@@ -372,6 +373,106 @@ export async function generateAuditReport(audit: any, auditResult?: any, waterma
     yPosition -= 15
   }
 
+  // AI Readiness Overview (if available)
+  if (result.aiReadinessOverview) {
+    checkNewPage(150)
+    page.drawText('AI READINESS OVERVIEW', {
+      x: margin,
+      y: yPosition,
+      size: 16,
+      font: helveticaBold,
+      color: primaryColor,
+    })
+    yPosition -= 30
+
+    // Category Analysis
+    if (result.aiReadinessOverview.categoryAnalysis) {
+      checkNewPage(50)
+      page.drawText('Category Analysis:', {
+        x: margin,
+        y: yPosition,
+        size: 12,
+        font: helveticaBold,
+        color: textColor,
+      })
+      yPosition -= 20
+      
+      const wrappedCategoryAnalysis = wrapText(sanitizeText(result.aiReadinessOverview.categoryAnalysis), 90)
+      wrappedCategoryAnalysis.forEach((line: string) => {
+        checkNewPage(15)
+        page.drawText(sanitizeText(line), {
+          x: margin + 10,
+          y: yPosition,
+          size: 11,
+          font: helveticaFont,
+          color: textColor,
+        })
+        yPosition -= 15
+      })
+      yPosition -= 10
+    }
+
+    // Key Strengths
+    if (result.aiReadinessOverview.keyStrengths && result.aiReadinessOverview.keyStrengths.length > 0) {
+      checkNewPage(50)
+      page.drawText('Key Strengths:', {
+        x: margin,
+        y: yPosition,
+        size: 12,
+        font: helveticaBold,
+        color: successColor,
+      })
+      yPosition -= 20
+      
+      result.aiReadinessOverview.keyStrengths.forEach((strength: string) => {
+        checkNewPage(20)
+        const wrappedStrength = wrapText(sanitizeText(`• ${strength}`), 85)
+        wrappedStrength.forEach((line: string) => {
+          checkNewPage(15)
+          page.drawText(sanitizeText(line), {
+            x: margin + 10,
+            y: yPosition,
+            size: 10,
+            font: helveticaFont,
+            color: textColor,
+          })
+          yPosition -= 15
+        })
+      })
+      yPosition -= 10
+    }
+
+    // Critical Gaps
+    if (result.aiReadinessOverview.criticalGaps && result.aiReadinessOverview.criticalGaps.length > 0) {
+      checkNewPage(50)
+      page.drawText('Critical Gaps:', {
+        x: margin,
+        y: yPosition,
+        size: 12,
+        font: helveticaBold,
+        color: dangerColor,
+      })
+      yPosition -= 20
+      
+      result.aiReadinessOverview.criticalGaps.forEach((gap: string) => {
+        checkNewPage(20)
+        const wrappedGap = wrapText(sanitizeText(`• ${gap}`), 85)
+        wrappedGap.forEach((line: string) => {
+          checkNewPage(15)
+          page.drawText(sanitizeText(line), {
+            x: margin + 10,
+            y: yPosition,
+            size: 10,
+            font: helveticaFont,
+            color: textColor,
+          })
+          yPosition -= 15
+        })
+      })
+      yPosition -= 15
+    }
+  }
+
   // Action Plan (if available)
   if (result.actionPlan) {
     checkNewPage(150)
@@ -457,6 +558,109 @@ export async function generateAuditReport(audit: any, auditResult?: any, waterma
       yPosition -= 20
       
       result.actionPlan.longTerm.forEach((action: string) => {
+        checkNewPage(20)
+        const wrappedAction = wrapText(sanitizeText(`• ${action}`), 85)
+        wrappedAction.forEach((line: string) => {
+          checkNewPage(15)
+          page.drawText(sanitizeText(line), {
+            x: margin + 10,
+            y: yPosition,
+            size: 10,
+            font: helveticaFont,
+            color: textColor,
+          })
+          yPosition -= 15
+        })
+      })
+      yPosition -= 15
+    }
+  }
+
+  // Strategic Action Plan (if available)
+  if (result.strategicActionPlan) {
+    checkNewPage(150)
+    page.drawText('STRATEGIC ACTION PLAN', {
+      x: margin,
+      y: yPosition,
+      size: 16,
+      font: helveticaBold,
+      color: primaryColor,
+    })
+    yPosition -= 30
+
+    // Immediate Actions (1-3 months)
+    if (result.strategicActionPlan.immediateActions && result.strategicActionPlan.immediateActions.length > 0) {
+      checkNewPage(50)
+      page.drawText('Immediate Actions (1-3 months):', {
+        x: margin,
+        y: yPosition,
+        size: 12,
+        font: helveticaBold,
+        color: dangerColor,
+      })
+      yPosition -= 20
+      
+      result.strategicActionPlan.immediateActions.forEach((action: string) => {
+        checkNewPage(20)
+        const wrappedAction = wrapText(sanitizeText(`• ${action}`), 85)
+        wrappedAction.forEach((line: string) => {
+          checkNewPage(15)
+          page.drawText(sanitizeText(line), {
+            x: margin + 10,
+            y: yPosition,
+            size: 10,
+            font: helveticaFont,
+            color: textColor,
+          })
+          yPosition -= 15
+        })
+      })
+      yPosition -= 10
+    }
+
+    // Short-term Strategy (3-6 months)
+    if (result.strategicActionPlan.shortTermStrategy && result.strategicActionPlan.shortTermStrategy.length > 0) {
+      checkNewPage(50)
+      page.drawText('Short-term Strategy (3-6 months):', {
+        x: margin,
+        y: yPosition,
+        size: 12,
+        font: helveticaBold,
+        color: warningColor,
+      })
+      yPosition -= 20
+      
+      result.strategicActionPlan.shortTermStrategy.forEach((action: string) => {
+        checkNewPage(20)
+        const wrappedAction = wrapText(sanitizeText(`• ${action}`), 85)
+        wrappedAction.forEach((line: string) => {
+          checkNewPage(15)
+          page.drawText(sanitizeText(line), {
+            x: margin + 10,
+            y: yPosition,
+            size: 10,
+            font: helveticaFont,
+            color: textColor,
+          })
+          yPosition -= 15
+        })
+      })
+      yPosition -= 10
+    }
+
+    // Long-term Roadmap (6-12 months)
+    if (result.strategicActionPlan.longTermRoadmap && result.strategicActionPlan.longTermRoadmap.length > 0) {
+      checkNewPage(50)
+      page.drawText('Long-term Roadmap (6-12 months):', {
+        x: margin,
+        y: yPosition,
+        size: 12,
+        font: helveticaBold,
+        color: successColor,
+      })
+      yPosition -= 20
+      
+      result.strategicActionPlan.longTermRoadmap.forEach((action: string) => {
         checkNewPage(20)
         const wrappedAction = wrapText(sanitizeText(`• ${action}`), 85)
         wrappedAction.forEach((line: string) => {
