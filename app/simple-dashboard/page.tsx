@@ -37,7 +37,6 @@ export default async function SimpleDashboardPage() {
         </div>
         
         <div className="mt-6 space-x-4">
-          <a href="/simple-login" className="text-blue-600 underline">Back to Login</a>
           <a href="/dashboard" className="text-blue-600 underline">Try Real Dashboard</a>
         </div>
       </div>
@@ -46,7 +45,7 @@ export default async function SimpleDashboardPage() {
     return (
       <div className="p-8">
         <h1 className="text-2xl font-bold text-red-600">Server Error</h1>
-        <p>Error: {error.message}</p>
+        <p>Error: {error instanceof Error ? error.message : 'Unknown error occurred'}</p>
         <a href="/simple-login" className="text-blue-600 underline">Go to Login</a>
       </div>
     )
