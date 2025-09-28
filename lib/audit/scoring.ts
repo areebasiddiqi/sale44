@@ -86,7 +86,7 @@ export async function analyzeWebsite(url: string): Promise<AuditResult> {
   }
 }
 
-function extractBusinessInfo($: cheerio.CheerioAPI, url: string) {
+function extractBusinessInfo($: cheerio.Root, url: string) {
   const title = $('title').text() || 'Unknown Business'
   const description = $('meta[name="description"]').attr('content') || 
                      $('meta[property="og:description"]').attr('content') || 
@@ -100,7 +100,7 @@ function extractBusinessInfo($: cheerio.CheerioAPI, url: string) {
   }
 }
 
-function inferIndustry($: cheerio.CheerioAPI, title: string, description: string): string {
+function inferIndustry($: cheerio.Root, title: string, description: string): string {
   const text = (title + ' ' + description).toLowerCase()
   
   const industries = {
@@ -124,7 +124,7 @@ function inferIndustry($: cheerio.CheerioAPI, title: string, description: string
 }
 
 // 1. Website & Digital Presence (30%)
-function analyzeDigitalPresence($: cheerio.CheerioAPI, url: string): AuditParameter {
+function analyzeDigitalPresence($: cheerio.Root, url: string): AuditParameter {
   const insights: string[] = []
   const recommendations: string[] = []
   let score = 0
@@ -200,7 +200,7 @@ function analyzeDigitalPresence($: cheerio.CheerioAPI, url: string): AuditParame
 }
 
 // 2. Market Visibility & Reputation (25%)
-function analyzeMarketVisibility($: cheerio.CheerioAPI, url: string): AuditParameter {
+function analyzeMarketVisibility($: cheerio.Root, url: string): AuditParameter {
   const insights: string[] = []
   const recommendations: string[] = []
   let score = 0
@@ -267,7 +267,7 @@ function analyzeMarketVisibility($: cheerio.CheerioAPI, url: string): AuditParam
 }
 
 // 3. Business Operations & Scalability (20%)
-function analyzeBusinessOperations($: cheerio.CheerioAPI, url: string): AuditParameter {
+function analyzeBusinessOperations($: cheerio.Root, url: string): AuditParameter {
   const insights: string[] = []
   const recommendations: string[] = []
   let score = 0
@@ -326,7 +326,7 @@ function analyzeBusinessOperations($: cheerio.CheerioAPI, url: string): AuditPar
 }
 
 // 4. Competitive Positioning (15%)
-function analyzeCompetitivePositioning($: cheerio.CheerioAPI, url: string): AuditParameter {
+function analyzeCompetitivePositioning($: cheerio.Root, url: string): AuditParameter {
   const insights: string[] = []
   const recommendations: string[] = []
   let score = 0
@@ -389,7 +389,7 @@ function analyzeCompetitivePositioning($: cheerio.CheerioAPI, url: string): Audi
 }
 
 // 5. Data & Insight Capability (10%)
-function analyzeDataInsight($: cheerio.CheerioAPI, url: string): AuditParameter {
+function analyzeDataInsight($: cheerio.Root, url: string): AuditParameter {
   const insights: string[] = []
   const recommendations: string[] = []
   let score = 0
@@ -440,7 +440,7 @@ function analyzeDataInsight($: cheerio.CheerioAPI, url: string): AuditParameter 
 }
 
 // 6. Compliance & Risk Management (10%)
-function analyzeCompliance($: cheerio.CheerioAPI, url: string): AuditParameter {
+function analyzeCompliance($: cheerio.Root, url: string): AuditParameter {
   const insights: string[] = []
   const recommendations: string[] = []
   let score = 0
