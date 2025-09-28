@@ -17,6 +17,12 @@ export function UpgradeButton({ planKey, customerId, currentPlan }: UpgradeButto
   const plan = PLANS[planKey]
 
   const handleUpgrade = async () => {
+    // Don't allow upgrading to free plan or plans without priceId
+    if (!('priceId' in plan) || !plan.priceId) {
+      toast.error('This plan is not available for upgrade')
+      return
+    }
+
     setLoading(true)
 
     try {
