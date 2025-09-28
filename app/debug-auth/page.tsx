@@ -23,21 +23,19 @@ export default function DebugAuthPage() {
           user: userData.user,
           sessionError,
           userError,
-          cookies: document.cookie,
           localStorage: {
             supabaseAuth: localStorage.getItem('sb-' + process.env.NEXT_PUBLIC_SUPABASE_URL?.split('//')[1]?.split('.')[0] + '-auth-token')
           }
         })
       } catch (error) {
         console.error('Auth check error:', error)
-        setAuthState({ error: error.message })
+        setAuthState({ error: error instanceof Error ? error.message : 'Unknown error occurred' })
       } finally {
         setLoading(false)
       }
     }
 
     checkAuth()
-
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       console.log('Auth state change:', event, session)
@@ -57,7 +55,7 @@ export default function DebugAuthPage() {
       alert(`Login result: ${error ? error.message : 'Success'}`)
     } catch (error) {
       console.error('Test login error:', error)
-      alert('Login error: ' + error.message)
+      alert('Login error: ' + (error instanceof Error ? error.message : 'Unknown error'))
     }
   }
 
@@ -68,7 +66,7 @@ export default function DebugAuthPage() {
       alert(`Logout result: ${error ? error.message : 'Success'}`)
     } catch (error) {
       console.error('Test logout error:', error)
-      alert('Logout error: ' + error.message)
+      alert('Logout error: ' + (error instanceof Error ? error.message : 'Unknown error'))
     }
   }
 
