@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -15,7 +15,7 @@ interface Audit {
   created_at: string
 }
 
-export default function GenerateLeadsPage() {
+function GenerateLeadsContent() {
   const [audits, setAudits] = useState<Audit[]>([])
   const [selectedAuditId, setSelectedAuditId] = useState('')
   const [targetCount, setTargetCount] = useState(50)
@@ -447,5 +447,17 @@ export default function GenerateLeadsPage() {
         </Card>
       </form>
     </div>
+  )
+}
+
+export default function GenerateLeadsPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="w-8 h-8 animate-spin" />
+      </div>
+    }>
+      <GenerateLeadsContent />
+    </Suspense>
   )
 }
